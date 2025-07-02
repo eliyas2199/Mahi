@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Mim</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
       width: 100%;
       height: 100%;
       display: flex;
@@ -21,32 +21,33 @@
       transition: background-image 1s ease-in-out;
       color: #fff;
       text-align: center;
+      overflow-x: hidden;
     }
 
     h1 {
-      font-size: 2.5rem;
-      margin-top: 30px;
+      font-size: 6vw;
+      margin-top: 4vh;
       color: #ff1493;
       text-shadow: 0 0 10px #fff;
     }
 
     .message-block p {
-      font-size: 1.1rem;
-      margin: 5px 10px;
-      color:Red;
+      font-size: 4vw;
+      margin: 1vh 5vw;
+      color: red;
     }
 
     #clickBtn {
-      padding: 12px 30px;
+      padding: 2vw 5vw;
       background: #ff5e99;
       border: none;
-      font-size: 1.1rem;
+      font-size: 4vw;
       color: white;
       border-radius: 30px;
       cursor: pointer;
       box-shadow: 0 0 15px #ff5e99;
       transition: 0.3s;
-      margin-top: 20px;
+      margin-top: 3vh;
     }
 
     #clickBtn:hover {
@@ -54,9 +55,11 @@
     }
 
     #cake {
-      width: 220px;
-      margin-top: 20px;
+      width: 70vw;
+      max-width: 250px;
+      margin-top: 3vh;
       transition: 0.5s;
+      height: auto;
     }
 
     .glow {
