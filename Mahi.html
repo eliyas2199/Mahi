@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Mim</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(to bottom, #ffdee9, #b5fffc);
+      background-size: cover;
+      background-position: center;
+      transition: background-image 1s ease-in-out;
+      color: #fff;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 30px;
+      color: #ff1493;
+      text-shadow: 0 0 10px #fff;
+    }
+
+    .message-block p {
+      font-size: 1.1rem;
+      margin: 5px 10px;
+    }
+
+    #clickBtn {
+      padding: 12px 30px;
+      background: #ff5e99;
+      border: none;
+      font-size: 1.1rem;
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ff5e99;
+      transition: 0.3s;
+      margin-top: 20px;
+    }
+
+    #clickBtn:hover {
+      background: #ff2a8a;
+    }
+
+    #cake {
+      width: 220px;
+      margin-top: 20px;
+      transition: 0.5s;
+    }
+
+    .glow {
+      filter: drop-shadow(0 0 25px gold);
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 99;
+      pointer-events: none;
+    }
+
+    .firework {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: yellow;
+      animation: explode 1s linear;
+      z-index: 999;
+    }
+
+    @keyframes explode {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(4); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>~ Happy Birthday Mim ~</h1>
+
+  <div class="message-block">
+    <p>Dear Sanchayita Mahi,</p>
+    <p>Wishing you a magical birthday full of love, laughter and joy!</p>
+    <p>— From: Your Loving Chachchu 💖</p>
+  </div>
+
+  <button id="clickBtn" onclick="toggleCelebration()">♡ Click Here ♡</button>
+
+  <img id="cake" src="Mim.jpg" alt="Cake">
+
+  <audio id="song" loop>
+    <source src="Mahi.mp3" type="audio/mpeg">
+  </audio>
+
+  <canvas id="confetti"></canvas>
+
+  <script>
+    const cake = document.getElementById('cake');
+    const song = document.getElementById('song');
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let confettiParticles = [];
+    let confettiInterval, fireworksInterval;
+    let isCelebrating = false;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function createConfetti() {
+      confettiParticles = [];
+      for (let i = 0; i < 200; i++) {
+        confettiParticles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * -canvas.height,
+          size: Math.random() * 6 + 2,
+          color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+          speed: Math.random() * 3 + 2
+        });
+      }
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confettiParticles.forEach(p => {
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+        p.y += p.speed;
+        if (p.y > canvas.height) p.y = -p.size;
+      });
+    }
+
+    function startConfetti() {
+      createConfetti();
+      confettiInterval = setInterval(drawConfetti, 30);
+    }
+
+    function stopConfetti() {
+      clearInterval(confettiInterval);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function showFirework() {
+      const firework = document.createElement('div');
+      firework.className = 'firework';
+      firework.style.left = `${Math.random() * window.innerWidth}px`;
+      firework.style.top = `${Math.random() * window.innerHeight}px`;
+      firework.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+      document.body.appendChild(firework);
+      setTimeout(() => firework.remove(), 1000);
+    }
+
+    function startFireworks() {
+      fireworksInterval = setInterval(showFirework, 400);
+    }
+
+    function stopFireworks() {
+      clearInterval(fireworksInterval);
+    }
+
+    function toggleCelebration() {
+      if (!isCelebrating) {
+        song.play();
+        document.body.style.backgroundImage = "url('Mahi.jpeg')";
+        cake.classList.add('glow');
+        startConfetti();
+        startFireworks();
+        isCelebrating = true;
+      } else {
+        song.pause();
+        song.currentTime = 0;
+        document.body.style.backgroundImage = "";
+        cake.classList.remove('glow');
+        stopConfetti();
+        stopFireworks();
+        isCelebrating = false;
+      }
+    }
+  </script>
+
+</body>
+</html>
